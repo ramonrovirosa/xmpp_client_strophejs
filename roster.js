@@ -108,22 +108,36 @@ function onMessage(msg) {
     var type = msg.getAttribute('type');
     var elems = msg.getElementsByTagName('body');
 
+
+
+    console.log('to '+ to);
+    console.log('from '+ from);
+
     if ( /*type == "chat" && */ elems.length > 0) {
         var body = elems[0];
-
         log('...I got a message from ' + from + ': ' +
             Strophe.getText(body));
 
-        var reply = $msg({to: from, from: to, type: 'chat'})
-            .cnode(Strophe.copyElement(body));
-        connection.send(reply.tree());
-
-        log('...I sent ' + from + ': ' + Strophe.getText(body));
+//        var reply = $msg({to: from, from: to, type: 'chat'})
+//            .cnode(Strophe.copyElement(body));
+//        connection.send(reply.tree());
+//
+//        log('...I sent ' + from + ': ' + Strophe.getText(body));
     }
 
     // we must return true to keep the handler alive.
     // returning false would remove it after it finishes.
     return true;
+}
+
+function sendMessage(msg){
+    var reply = $msg({to: msg.to, from: connection.jid, type: 'chat'})
+        .c("body")
+        .t(msg.message);
+        connection.send(reply.tree());
+
+        log('...I sent ' + msg.to + ': ' + msg.message);
+
 }
 
 
@@ -152,5 +166,24 @@ $(document).ready(function () {
 	    connection.disconnect();
 	}
     });
+
+    //send a message to another user.
+    $('#sendMessage').bind('click', function(){
+        var message = {
+            to :  $('#messageTo').val(),
+            message : $('#messagBox').val()
+        }
+        if(connection.jid){
+             if(message.to && message.message) {
+                 sendMessage(message);
+             }
+            else
+               alert("No message body/email specified")
+        }
+
+        else
+            alert('Not connected, sorry cant send message!!!');
+    });
+
 });
 

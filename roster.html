@@ -13,17 +13,27 @@
 <center>
     <h1>Strophe Chat Client</h1>
     <h2>Punjab + Nginx</h2>
+
+    <div>For gmail: username@gmail.com</div>
+    <div>For facebook: username@chat.facebook.com</div>
 </center>
-<div>For gmail: username@gmail.com</div>
-<div>For facebook: username@chat.facebook.com</div>
 <div id='login' style='text-align: center'>
     <form name='cred'>
         <label for='jid'>JID:</label>
-        <input type='text' id='jid'/>
+        <input type='text' value='ramon.rovirosa@gmail.com' id='jid'/>
         <label for='pass'>Password:</label>
         <input type='password' id='pass'/>
         <input type='button' id='connect' value='connect'/>
+        </br>
+        </br>
+        <label>Send a Message to email: </label>
+        <input type='text' id='messageTo'/>
+        </br>
+        <textarea id='messagBox' rows="4" cols="50" placeholder="Send a message..."></textarea>
+        </br>
+        <input type='button' id='sendMessage' value='Send Message'/>
     </form>
+
 </div>
 <hr/>
 <div id='log'></div>
