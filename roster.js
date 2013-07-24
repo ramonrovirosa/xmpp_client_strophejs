@@ -22,9 +22,10 @@ function onConnect(status)
     } else if (status == Strophe.Status.CONNECTED) {
 	log('Strophe is connected.');
 	log('Get Roster for: ' + connection.jid );
-       connection.addHandler(onMessage, null, 'message', null, null,  null);
-       connection.send($pres().tree());
-       getRoster();
+    //        connection.send($pres().tree());
+        sendPriority();
+        getRoster();
+        connection.addHandler(onMessage, null, 'message', null, null,  null);
        //connection.addHandler(getRoster, null, 'roster');
 
     }
@@ -52,22 +53,13 @@ function rosterReceived(iq){
         }
         console.log(this);
         log('Name: ' + $(this).attr('name') + ', jid: ' +$(this).attr('jid')  +'\n');
-
-        //connection.send($pres().tree()) ;
-        //connection.addHandler(on_presence,null,"presence");
     });
 
-    connection.send($pres().tree());
+    //connection.send($pres().tree());
     connection.addHandler(on_presence,null,"presence");
-    log('...Getting online availability/presence (available,unavailable, etc...');
+    log('...Getting online availability/presence (available,unavailable, etc...)');
 
 }
-
-//function received2(iq){
-//      alert(iq);
-//
-//}
-
 
 function on_presence(presence){
     var presence_type = $(presence).attr('type'); // unavailable, subscribed, etc...
@@ -118,11 +110,6 @@ function onMessage(msg) {
         log('...I got a message from ' + from + ': ' +
             Strophe.getText(body));
 
-//        var reply = $msg({to: from, from: to, type: 'chat'})
-//            .cnode(Strophe.copyElement(body));
-//        connection.send(reply.tree());
-//
-//        log('...I sent ' + from + ': ' + Strophe.getText(body));
     }
 
     // we must return true to keep the handler alive.
@@ -138,6 +125,15 @@ function sendMessage(msg){
 
         log('...I sent ' + msg.to + ': ' + msg.message);
 
+}
+
+function sendPriority(){
+    var priority = document.getElementById("priority");
+    //var selectedPriority = parseInt(priority.options[priority.selectedIndex].value);
+    var selectedPriority = priority.options[priority.selectedIndex].value;
+    //alert(selectedPriority);
+    connection.send($pres()
+        .c("priority").t(selectedPriority));
 }
 
 
