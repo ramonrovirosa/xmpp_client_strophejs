@@ -1,4 +1,4 @@
-xmpp_client_strophejs
+XMPP_client_strophe.js
 =====================
 
 Javascript Web XMPP Client...Works with Google Talk &amp; Facebook Chat, and Openfire for a custom server.
