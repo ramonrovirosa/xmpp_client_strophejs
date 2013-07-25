@@ -15,7 +15,7 @@ For nginx, I used the windows pre-configured version: http://www.kevinworthingto
 
 Strophe JS Website: http://strophe.im/strophejs/
 
-For Connecting to Google talk: 
+For Connecting to Google talk: \n
 User name: user@gmail.com
 Password: user google password
 
