@@ -15,3 +15,12 @@ For nginx, I used the windows pre-configured version: http://www.kevinworthingto
 
 Strophe JS Website: http://strophe.im/strophejs/
 
+For Connecting to Google talk: 
+User name: user@gmail.com
+Password: user google password
+
+For Connecting to Facebook:
+User name: user@chat.facebook.com
+Password: user facebook password
+
+Openfire server: http://www.igniterealtime.org/projects/openfire/
