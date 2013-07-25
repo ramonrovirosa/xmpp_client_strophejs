@@ -1,4 +1,4 @@
-XMPP_client_strophe.js
+XMPP Web Client Using Strophe.js
 =====================
 
 Javascript Web XMPP Client...Works with Google Talk &amp; Facebook Chat, and Openfire for a custom server.
