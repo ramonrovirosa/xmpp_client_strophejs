@@ -1,0 +1,35 @@
+<center>
+    <h1>Strophe Chat Client</h1>
+    <h2>Punjab + Nginx</h2>
+
+    <div>For gmail: username@gmail.com</div>
+    <div>For facebook: username@chat.facebook.com</div>
+</center> </br>  </br>
+<div id='login' style='text-align: center'>
+    <form name='cred'>
+        <label for='jid' style="display:inline;">JID:</label>
+        <input type='text' data-bind="value:jid"  id='jid'/>
+        <label for='pass' style="display:inline;">Password:</label>
+        <input type='password' data-bind="value: pass" id='pass'/>
+        <input type='button' data-bind="click:connect, value: connectButtonText()" id='connect' style="margin-bottom:10px;"/>
+        </br>
+        </br>
+        <label style="display:inline;">Send a Message to email: </label>
+        <input type='text' id='messageTo' data-bind="value:messageTo"/>
+        </br>
+        <textarea id='messagBox' data-bind="value: mBox" style="width:600px;" placeholder="Send a message..." ></textarea>
+        <!--</br>-->
+        <input style="display:inline;" type='button' data-bind="click:sendMessage, value:messageText()" id='sendMessage' value='Send Message'/>
+        </br>  </br>
+        <label for="priority">Set the Priority of this Cleint</label>
+        <select id="priority" data-bind="value:priority">
+            <option value="-10">-10</option>
+            <option value="0" selected="selected">0</option>
+            <option value="10">10</option>
+            <option value="100">100</option>
+        </select>
+    </form>
+
+</div>
+<hr/>
+<div id='log'></div>
