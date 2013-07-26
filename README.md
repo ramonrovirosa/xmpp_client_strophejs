@@ -33,3 +33,6 @@ For Connecting to Facebook:
 - Password: user facebook password
 
 Openfire server: http://www.igniterealtime.org/projects/openfire/
+
+###Durandal JS XMPP CLIENT###
+Included is a folder, with an implementation for a SPA (Single Page Application) Durandal XMPP Client. Durandal website http://durandaljs.com/
