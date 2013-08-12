@@ -12,6 +12,7 @@ For Punjab I used the version on github: https://github.com/twonds/punjab:
 
 - Note: for Punjab, you need python, and version 2.7 worked for me, but not version 3.3..
 - Install instructions can be found on the github page.
+- Dependencies: twisted, pyopenssl. Both need to be added to the path environment.
 
 ###Nginx###
 
