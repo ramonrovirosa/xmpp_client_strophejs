@@ -38,7 +38,7 @@ Openfire server: http://www.igniterealtime.org/projects/openfire/
 ###Durandal JS XMPP CLIENT###
 Included is a folder, with an implementation for a SPA (Single Page Application) Durandal XMPP Client. Durandal website http://durandaljs.com/
 
-##Running##
+##How to Run/Start up the Client##
 Once everything is installed:
 1. cd into your nginx directory.
 2. Run the cmd: twistd punjab.
