@@ -46,6 +46,5 @@ Once everything is installed:
   4. Open up http://localhost:80
   
   ####For the Durandal Client####
-  1. Go to the directory containing the mimosa config file and run: 
-  <b>mimosa watch --server</b>
-  2.Go to http://localhost:3000
+  1. Go to the directory containing the mimosa config file and run: <b>mimosa watch --server</b>
+  2. Go to http://localhost:3000
