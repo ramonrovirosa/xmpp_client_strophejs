@@ -15,7 +15,7 @@ For Punjab I used the version on github: https://github.com/twonds/punjab:
 
 ###Nginx###
 
-For nginx, I used the windows pre-configured version: http://www.kevinworthington.com/nginx-for-windows/:
+For nginx, I used the windows pre-configured version: http://www.kevinworthington.com/nginx-for-windows/
 - Other versions directly from the nginx page did not work for me...
 
 ###Strophe###
