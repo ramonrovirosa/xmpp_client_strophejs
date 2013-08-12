@@ -40,7 +40,7 @@ Included is a folder, with an implementation for a SPA (Single Page Application)
 
 ##How to Run/Start up the Client##
 Once everything is installed:
--1. cd into your nginx directory.
--2. Run the cmd: twistd punjab.
--3. In a new terminal cd into your nginx directory agagin and run nginx.exe
--4. Open up http://localhost:80
+  1. cd into your nginx root directory. 
+  2. Run the cmd: twistd punjab.
+  3. In a new terminal cd into your nginx directory agagin and run nginx.exe
+  4. Open up http://localhost:80
