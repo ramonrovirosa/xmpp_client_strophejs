@@ -52,7 +52,7 @@ function rosterReceived(iq){
             return true;
         }
         console.log(this);
-        log('Name: ' + $(this).attr('name') + ', jid: ' +$(this).attr('jid')  +'\n');
+        log('Name: ' + $(this).attr('name') + ', jid: ' + $(this).attr('jid')  +'\n');
     });
 
     //connection.send($pres().tree());
@@ -71,19 +71,17 @@ function on_presence(presence){
     //console.log("type: " + presence_type);
     if (presence_type != 'error'){
         if (presence_type === 'unavailable'){
-            log(from + " is unavailable to chat");
+            log(from + " is offline (unavailable)");
 
         }else{
             var show = $(presence).find("show").text(); // this is what gives away, dnd, etc.
             if (show === 'chat' || show === ''){
                 // Mark contact as online
-                log(from + ' is available to chat');
-            } if (show === 'away'){
+                log(from + ' priority is ' + $(presence).find("priority").text()+ "...available to chat" );
+            } else if (show === 'away'){
                log(from + ' is away');
             }
-            else{
-                log(from + ' ...no presence type received, user is online');
-            }
+
         }
     }
     return true;
