@@ -6,6 +6,7 @@
             src='http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js'></script>
     <script type='text/javascript'
             src='strophe.js'></script>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/knockout/2.3.0/knockout-min.js'></script>
     <script type='text/javascript'
             src='roster.js'></script>
 </head>
@@ -23,7 +24,7 @@
         <input type='text' value='ramon.rovirosa@gmail.com' id='jid'/>
         <label for='pass'>Password:</label>
         <input type='password' id='pass'/>
-        <input type='button' id='connect' value='connect'/>
+        <input type="button" id='connect' data-bind="click: getContacts" value="connect"></input>
         </br>
         </br>
         <label>Send a Message to jid: </label>
@@ -43,6 +44,24 @@
         <p>Note: A client with a negative priority will not receive a message.</p>
     </form>
 
+    <div data-bind="visible: showContacts ">
+        <h2 data-bind="text:contactHeader"></h2>
+        <table style="margin:auto">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th> Status</th>
+            </tr>
+            </thead>
+
+            <tbody data-bind="foreach: contacts">
+            <tr>
+                <td data-bind="text: name"></td>
+                <td data-bind="text:status"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
 </div>
 <hr/>
