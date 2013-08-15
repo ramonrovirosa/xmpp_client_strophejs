@@ -8,7 +8,7 @@ I Used Nginx &amp; Punjab as well. My implementation is Windows based, but shoul
 
 To get the XMPP client running, first I installed Punjab, which requires python. 
 
-For Punjab I used the version on github: https://github.com/twonds/punjab: 
+For Punjab I used the version on github: https://github.com/twonds/punjab 
 
 - Note: for Punjab, you need python, and version 2.7 worked for me, but not version 3.3..
 - Install instructions can be found on the github page.
