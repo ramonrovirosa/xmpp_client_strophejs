@@ -57,8 +57,6 @@
             //log('Name: ' + $(this).attr('name') + ', jid: ' + $(this).attr('jid')  +'\n');
             viewModel.pushArray($(this).attr('jid'));
             //viewModel.contacts().push(new contact($(this).attr('jid')));
-
-
         });
 
         //connection.send($pres().tree());
@@ -82,6 +80,8 @@
         if (presence_type != 'error'){
             if (presence_type === 'unavailable'){
                 //log(from + " is offline (unavailable)");
+                viewModel.setOfflineStatus($(presence).attr('from'));
+
 
             }else{
                 var show = $(presence).find("show").text(); // this is what gives away, dnd, etc.
@@ -89,7 +89,7 @@
                     // Mark contact as online
                     //log(from + ' priority is ' + $(presence).find("priority").text()+ "...available to chat" );
                     console.log("someone is online: " + from);
-                    viewModel.getOnlineStatus($(presence).attr('from'));
+                    viewModel.setOnlineStatus($(presence).attr('from'));
 
                 } else if (show === 'away'){
                    //log(from + ' is away');
@@ -206,6 +206,7 @@
         var self = this;
         self.name = name;
         self.status=ko.observable("Offline");
+        self.from = '';
         //self.availability = ko.observable();
     }
 
@@ -214,13 +215,10 @@
 
         self.showContacts=ko.observable(false);
         self.contactHeader=ko.observable("Contacts");
-        self.contacts = ko.observableArray([
-
-        ]);
+        self.contacts = ko.observableArray([]);
         self.getContacts= function(){
                 //$("#contacts h2").replaceWith("<h2>Contacts</h2>");
                 self.showContacts(!self.showContacts());
-
         }
         self.pushArray=function(name){
             self.contacts.push(new contact(name));
@@ -228,19 +226,37 @@
         self.removeArray=function(){
              self.contacts.removeAll();
         }
-        self.getOnlineStatus=function(from){
-
+        self.setOnlineStatus=function(from){
+            //connection.send($pres());
             ko.utils.arrayForEach(self.contacts(), function(item){
                 if(from.match(item.name)) {
+                    item.from = from;
                     console.log(item)
-                    item.status("Online...available to chat!");
+                    if(item.status() != "Online...available to chat!"){
+                        item.status("Online...available to chat!");
+                        console.log("sending Presence!")
+                        connection.send($pres());
+                    }
                 }
             });
 
-//            for(var i=0;i<self.contacts().length;i++){
-//                  console.log(self.contacts()[i].name)
-//                 //if(jid.match(self.contacts()[i].name))
-//            }
+
+        }
+        self.setOfflineStatus=function(from){
+
+            ko.utils.arrayForEach(self.contacts(), function(item){
+                if(from.match(item.name)) { //user
+                    console.log("going offline");
+                    console.log(from);
+                    console.log(item)
+                    //online user goes offline.
+                    if(item.from != '' && item.from == from){
+                        item.status("Offline");
+                        console.log("Online user just went offline...")
+                    }
+                }
+            });
+
         }
 
     }
