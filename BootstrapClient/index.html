@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>XMPP Client Strophe</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-wip/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/client.css">
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-wip/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Strophe XMPP Chat Client</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Login</a></li>
+                <li><a href="#about">Contacts</a></li>
+                <li><a href="#contact">Message</a></li>
+                <li><a href="#contact">PubSub-Publish</a></li>
+                <li><a href="#contact">PubSub-Subscribe</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="login-box panel">
+        <div class="panel-heading pHead">Login</div>
+            <div class="panel-body">
+                <div class="input-group">
+                    <span class="input-group-addon">UserName:</span>
+                    <input type="text" class="form-control" placeholder="JID" >
+                    <span class="input-group-addon">Password:</span>
+                    <input type='password' class="form-control" placeholder="">
+                    <span class="input-group-addon">Priority:</span>
+                    <input type="text" class="form-control" placeholder="-10,0,10" >
+                </div>
+                <button type="button" class="btn btn-default" id="logInButton">Connect</button>
+        </div>
+    </div>
+
+    <div class="login-box panel">
+        <div class="panel-heading pHead">Contacts</div>
+        <div class="panel-body">
+            <table class="table table-bordered table-condensed">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>JID</th>
+                    <th>Online/Offline</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Ramon</td>
+                    <td>ramon@localhost</td>
+                    <td>Online</td>
+                </tr>
+                <tr>
+                    <td>Obama</td>
+                    <td>obama@localhost</td>
+                    <td>Offline</td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    <div class="login-box panel ">
+        <div class="panel-heading" >Message</div>
+        <div class="panel-body">
+            <div class="input-group">
+                <span class="input-group-addon">Message</span>
+                <input type="text" class="form-control" placeholder="Username" >
+                <textarea type="text" class="form-control" placeholder="Message here..." rows="4" ></textarea>
+            </div>
+            <button type="button" class="btn btn-default" id="logInButton">Send</button>
+            <h3 class="pHead">Messages Received</h3>
+        </div>
+    </div>
+
+    <div class="login-box panel">
+        <div class="panel-heading pHead">PubSub</div>
+        <div class="panel-body">
+            <div class="input-group">
+                <span class="input-group-addon">Publish</span>
+                <input type="text" class="form-control" placeholder="Node" >
+                <textarea type="text" class="form-control" placeholder="Message here..." rows="4" ></textarea>
+            </div>
+            <button type="button" class="btn btn-default" id="logInButton">Publish</button>
+            <div class="input-group sub">
+                <span class="input-group-addon">Subscribe</span>
+                <input type="text" class="form-control" placeholder="Node" >
+            </div>
+
+            <button type="button" class="btn btn-default" id="logInButton">Subscribe</button>
+            <h3 class="pHead">PubSub Messages Received</h3>
+        </div>
+    </div>
+
+
+</div><!-- /.container -->
+
+</body>
+</html>

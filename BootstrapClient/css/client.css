@@ -1,0 +1,19 @@
+body {
+    padding-top: 50px;
+
+}
+.login-box {
+    margin: 40px 15px;
+
+}
+.pHead{
+    text-align: center;
+    font-size:24px;
+}
+#logInButton{
+    margin-top: 10px;
+
+}
+.sub{
+    margin-top: 10px;
+}
