@@ -10,10 +10,16 @@ body {
     text-align: center;
     font-size:24px;
 }
-#logInButton{
+#connect{
     margin-top: 10px;
 
 }
 .sub{
     margin-top: 10px;
+}
+
+#connected{
+    margin-top: 10px;
+    color:#008000;
+    font-size: 24px;
 }

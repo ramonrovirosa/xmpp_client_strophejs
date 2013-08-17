@@ -9,6 +9,9 @@
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-wip/js/bootstrap.min.js"></script>
+    <script src='js/strophe.js'></script>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/knockout/2.3.0/knockout-min.js'></script>
+    <script src='js/xmpp_client.js'></script>
 </head>
 <body>
 
@@ -41,14 +44,18 @@
             <div class="panel-body">
                 <div class="input-group">
                     <span class="input-group-addon">UserName:</span>
-                    <input type="text" class="form-control" placeholder="JID" >
+                    <input type="text" class="form-control" placeholder="JID" id='jid'>
                     <span class="input-group-addon">Password:</span>
-                    <input type='password' class="form-control" placeholder="">
+                    <input type='password' class="form-control" placeholder="" id='pass'>
                     <span class="input-group-addon">Priority:</span>
-                    <input type="text" class="form-control" placeholder="-10,0,10" >
+                    <input type="text" class="form-control" placeholder="-10,0,10" default="0" id="priority" >
                 </div>
-                <button type="button" class="btn btn-default" id="logInButton">Connect</button>
-        </div>
+
+                <input type="button" class="btn btn-default " data-bind="click: connect" id='connect' value="Connect" ></input>
+                <div class="" data-bind="visible: connected " id="connected">Connected!</div>
+
+
+            </div>
     </div>
 
     <div class="login-box panel">
