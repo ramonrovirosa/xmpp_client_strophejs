@@ -10,6 +10,7 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-wip/js/bootstrap.min.js"></script>
     <script src='js/strophe.js'></script>
+    <script type="text/javascript" src="js/strophe.pubsub.min.js"></script>
     <script src='http://cdnjs.cloudflare.com/ajax/libs/knockout/2.3.0/knockout-min.js'></script>
     <script src='js/xmpp_client.js'></script>
 </head>
@@ -38,7 +39,6 @@
 </div>
 
 <div class="container">
-
     <div class="login-box panel">
         <div class="panel-heading pHead">Login</div>
             <div class="panel-body">
@@ -52,15 +52,18 @@
                 </div>
 
                 <input type="button" class="btn btn-default " data-bind="click: connect" id='connect' value="Connect" ></input>
-                <div class="" data-bind="visible: connected " id="connected">Connected!</div>
-
+                <div data-bind="style: {color: connectText() == 'Connected!' ? 'green' : 'black'}">
+                    <div class="" data-bind="visible: connecting" id="connecting">
+                        <div data-bind="text:connectText"></div>
+                    </div>
+                </div>
 
             </div>
     </div>
 
     <div class="login-box panel">
         <div class="panel-heading pHead">Contacts</div>
-        <div class="panel-body">
+        <div class="panel-body" data-bind="visible: connecting">
             <table class="table table-bordered table-condensed">
                 <thead>
                 <tr>
@@ -69,17 +72,12 @@
                     <th>Online/Offline</th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr>
-                    <td>Ramon</td>
-                    <td>ramon@localhost</td>
-                    <td>Online</td>
-                </tr>
-                <tr>
-                    <td>Obama</td>
-                    <td>obama@localhost</td>
-                    <td>Offline</td>
-                </tr>
+                <tbody data-bind='foreach: contacts'>
+                    <tr data-bind="style:{color: status() == 'Offline' ? 'black' : 'green'}">
+                        <td data-bind="text: name"></td>
+                        <td data-bind="text:jid"></td>
+                        <td data-bind="text:status"></td>
+                    </tr>
                 </tbody>
             </table>
 
@@ -87,34 +85,104 @@
     </div>
 
     <div class="login-box panel ">
-        <div class="panel-heading" >Message</div>
-        <div class="panel-body">
+        <div class="panel-heading pHead" >Message</div>
+        <div class="panel-body" data-bind="visible: connecting">
+            <h3 class="pHead">Send a Message</h3>
             <div class="input-group">
                 <span class="input-group-addon">Message</span>
-                <input type="text" class="form-control" placeholder="Username" >
-                <textarea type="text" class="form-control" placeholder="Message here..." rows="4" ></textarea>
+                <input type="text" class="form-control" placeholder="Username" data-bind="value:sendUsername" >
+                <textarea type="text" class="form-control" placeholder="Message here..." rows="4" data-bind="value:sendMessageText"></textarea>
             </div>
-            <button type="button" class="btn btn-default" id="logInButton">Send</button>
-            <h3 class="pHead">Messages Received</h3>
+            <button type="button" class="btn btn-default" id="sendButton" data-bind="click:sendMessage">Send</button>
+            <div data-bind="visible:firstMessageSent">
+                <h3 class="pHead">Messages Sent</h3>
+                <table class="table table-bordered table-condensed">
+                    <thead>
+                    <tr>
+                        <th>To</th>
+                        <th>Message</th>
+                    </tr>
+                    </thead>
+                    <tbody data-bind='foreach: sentMessages'>
+                    <tr>
+                        <td data-bind="text: to"></td>
+                        <td data-bind="text:message"></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <div data-bind="visible:firstMessageReceived">
+                <h3 class="pHead">Messages Received</h3>
+                <table class="table table-bordered table-condensed">
+                    <thead>
+                    <tr>
+                        <th>From</th>
+                        <th>Message</th>
+                    </tr>
+                    </thead>
+                    <tbody data-bind='foreach: receivedMessages'>
+                    <tr>
+                        <td data-bind="text: from"></td>
+                        <td data-bind="text: body"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
     <div class="login-box panel">
-        <div class="panel-heading pHead">PubSub</div>
-        <div class="panel-body">
+        <div class="panel-heading pHead">Publish Subscribe</div>
+        <div class="panel-body" data-bind="visible: connecting">
+            <h3 class="pHead">Publish A Message to All Subscribers</h3>
             <div class="input-group">
                 <span class="input-group-addon">Publish</span>
-                <input type="text" class="form-control" placeholder="Node" >
-                <textarea type="text" class="form-control" placeholder="Message here..." rows="4" ></textarea>
+                <input type="text" class="form-control" placeholder="Node" data-bind="value: publishNode">
+                <textarea type="text" class="form-control" placeholder="Message here..." rows="4" data-bind="value: publishText"></textarea>
             </div>
-            <button type="button" class="btn btn-default" id="logInButton">Publish</button>
-            <div class="input-group sub">
-                <span class="input-group-addon">Subscribe</span>
-                <input type="text" class="form-control" placeholder="Node" >
+            <button type="button" class="btn btn-default" id="logInButton" data-bind="click:publishMessage">Publish</button>
+
+            <div >
+                <h3 class="pHead">PubSub Messages Sent</h3>
+                <table class="table table-bordered table-condensed">
+                    <thead>
+                    <tr>
+                        <th>Publisher</th>
+                        <th>Message</th>
+                    </tr>
+                    </thead>
+                    <tbody data-bind='foreach: publishedMessage'>
+                    <tr>
+                        <td data-bind="text: from"></td>
+                        <td data-bind="text: body"></td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
 
-            <button type="button" class="btn btn-default" id="logInButton">Subscribe</button>
-            <h3 class="pHead">PubSub Messages Received</h3>
+            <div class="input-group sub" id="subscribe">
+                <span class="input-group-addon">Subscribe</span>
+                <input type="text" class="form-control" placeholder="Node" data-bind="value:subscribeNode">
+            </div>
+            <button type="button" class="btn btn-default" id="subscribeButton" data-bind="click:pubSubscribe">Subscribe</button>
+            <div data-bind="visible: clientSubscribed">
+                <h3 class="pHead">PubSub Messages Received</h3>
+                <table class="table table-bordered table-condensed">
+                    <thead>
+                    <tr>
+                        <th>Subscription</th>
+                        <th>Message</th>
+                    </tr>
+                    </thead>
+                    <tbody data-bind='foreach: subscribedMessages'>
+                    <tr>
+                        <td data-bind="text: from"></td>
+                        <td data-bind="text: body"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 

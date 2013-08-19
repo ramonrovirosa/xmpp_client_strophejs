@@ -18,8 +18,15 @@ body {
     margin-top: 10px;
 }
 
-#connected{
+#connecting{
     margin-top: 10px;
-    color:#008000;
     font-size: 24px;
 }
+#sendButton,#logInButton,#subscribeButton{
+    margin-top: 10px;
+}
+
+#subscribe{
+    margin-top:50px;
+}
+
