@@ -125,27 +125,30 @@ function onMessage(msg) {
     return true;
 }
 
-//function publish(pub){
-//    console.log("Node Created, now publishing");
-//    console.log(pub);
-//    connection.pubsub.publish(
-//        pub.jid,
-//        pub.pubSubServer,
-//        pub.pubNode,
-//        [pub.message],
-//        sendPub()
-//    );
-//}
+function createNode(){
+    connection.send($pres());
+    var msg = {
+        from : viewModel.subscribeNode(),
+        message    : viewModel.publishText(),
+        type :    'msg_text'
+    }
+    sendPub();
 
-function createNode(data){
-    console.log("creating node");
-    console.log(data);
 }
 
-function sendPub(data){
-    console.log("data sent");
-    console.log(data);
-     //viewModel.messagePublished(data);
+function sendPub(){
+    console.log("sending data");
+    var _d = $build('data', { 'type' : 'msg_text' }).t(viewModel.publishText()).toString();
+    console.log("_d");
+    console.log(_d);
+    connection.pubsub.publish(
+        connection.jid,
+        'pubsub.localhost',
+        viewModel.publishNode(),
+        [_d],
+        publish.onSend
+    );
+     //viewModel.messagePublished(msg);
     return true;
 }
 
@@ -170,6 +173,8 @@ $(document).ready(function(){
 
 function contactsModel(){
     var self = this;
+    self.jid=ko.observable();
+    self.password=ko.observable();
     self.connecting=ko.observable(false);
     self.firstMessageSent=ko.observable(false);
     self.firstMessageReceived=ko.observable(false);
@@ -192,8 +197,8 @@ function contactsModel(){
         if (button.value == 'Connect') {
             button.value = 'Disconnect';
 
-            connection.connect($('#jid').get(0).value,
-                $('#pass').get(0).value,
+            connection.connect(self.jid(),
+                self.password(),
                 onConnect);
         } else {
             button.value = 'Connect';
@@ -281,19 +286,18 @@ function contactsModel(){
             alert("Empty Message, please type something");
         else{
             console.log("creating pubSub node");
-            //var _d = $build('data', { 'type' : 'msg_text' }).t(self.publishText()).toString();
             connection.pubsub.createNode(
-                connection.jid,
+                self.jid(),
                 'pubsub.localhost',
                 self.publishNode(),
                 {},
-                createNode()
+                publish.onCreateNode
             );
         }
     }
     self.pubSubscribe=function(){
         connection.pubsub.subscribe(
-            connection.jid,
+            self.jid(),
             'pubsub.localhost',
             self.subscribeNode(),
             [],
@@ -320,4 +324,17 @@ function contact(name,jid){
     self.status=ko.observable("Offline");
     self.from = '';
     //self.availability = ko.observable();
+}
+
+var publish = {
+    onCreateNode : function(data){
+        console.log("Data: ");
+        console.log(data);
+        createNode();
+    },
+    onSend: function (data) {
+        console.log("Data Sent");
+        console.log(data);
+        return true;
+    }
 }
