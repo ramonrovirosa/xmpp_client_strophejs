@@ -125,16 +125,20 @@ function onMessage(msg) {
 
 function createNode(){
     connection.send($pres());
-    var msg = {
-        from : viewModel.subscribeNode(),
-        message    : viewModel.publishText(),
-        type :    'msg_text'
-    }
+//    var msg = {
+//        from : viewModel.subscribeNode(),
+//        message    : viewModel.publishText(),
+//        type :    'msg_text'
+//    }
     sendPub();
 }
 
 function sendPub(){
-    if(viewModel.publishText() == '') return;
+    if(viewModel.publishText() == ''){
+        viewModel.createNode();
+        return;
+    }
+
     console.log("sending data");
     //var _d = $build('data', { type : 'msg_text' }).t(viewModel.publishText()).toString();
     //console.log("_d");
@@ -148,8 +152,6 @@ function sendPub(){
     );
      //viewModel.messagePublished(msg);
 }
-
-
 function onSubscribe(){
     console.log("client subscribed!");
     viewModel.subscribe();
@@ -184,9 +186,11 @@ function contactsModel(){
     self.sendUsername=ko.observable();
     self.sendMessageText=ko.observable();
     self.publishNode=ko.observable();
-    self.publishText=ko.observable();
+    self.nodeCreated=ko.observable(false);
+    self.publishText=ko.observable('');
     self.subscribeNode=ko.observable();
     self.clientSubscribed=ko.observable(false);
+    self.pubButton=ko.observable("Node");
 
 
     self.connect = function(){
@@ -206,6 +210,7 @@ function contactsModel(){
             connection.flush();
             connection.disconnect();
             viewModel.removeArray();
+            viewModel.removeText();
         }
     }
     self.connectDialog = function(status){
@@ -226,6 +231,11 @@ function contactsModel(){
         self.sentMessages.removeAll();
         self.subscribedMessages.removeAll();
         self.publishedMessage.removeAll();
+    }
+    self.removeText=function(){
+        self.publishNode('');
+        self.publishText('');
+        self.subscribeNode('');
     }
     self.setOfflineStatus=function(from){
         ko.utils.arrayForEach(self.contacts(), function(item){
@@ -312,6 +322,10 @@ function contactsModel(){
              self.publishedMessage.push(msg);
 
     }
+    self.createNode=function(){
+        self.nodeCreated(true);
+        self.pubButton('Send Node Message');
+    }
 }
 
 function contact(name,jid){
@@ -332,6 +346,7 @@ var publish = {
     onSend: function (data) {
         console.log("Data Sent");
         console.log(data);
+        viewModel.messagePublished({from: viewModel.publishNode(),body: viewModel.publishText() })
         return true;
     }
 }

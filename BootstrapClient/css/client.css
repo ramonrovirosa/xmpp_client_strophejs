@@ -22,7 +22,7 @@ body {
     margin-top: 10px;
     font-size: 24px;
 }
-#sendButton,#logInButton,#subscribeButton{
+#sendButton,#logInButton,#subscribeButton,#nodeMessage{
     margin-top: 10px;
 }
 

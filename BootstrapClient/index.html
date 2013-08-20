@@ -51,7 +51,7 @@
                     <input type="text" class="form-control" placeholder="-10,0,10" default="0" id="priority" >
                 </div>
 
-                <input type="button" class="btn btn-default " data-bind="click: connect" id='connect' value="Connect" ></input>
+                <input type="button" class="btn btn-default " data-bind="click: connect" id='connect' value="Connect" />
                 <div data-bind="style: {color: connectText() == 'Connected!' ? 'green' : 'black'}">
                     <div class="" data-bind="visible: connecting" id="connecting">
                         <div data-bind="text:connectText"></div>
@@ -137,12 +137,18 @@
         <div class="panel-body" data-bind="visible: connecting">
             <h3 class="pHead">Publish A Message to All Subscribers</h3>
             <div class="input-group">
-                <span class="input-group-addon">Publish</span>
+                <span class="input-group-addon">Node Name</span>
                 <input type="text" class="form-control" placeholder="Node" data-bind="value: publishNode">
+                <!--<span class="input-group-addon">Message</span>-->
+                <!--<textarea type="text" class="form-control" placeholder="Message here..." rows="4" data-bind="value: publishText"></textarea>-->
+            </div>
+            <div class="input-group" data-bind="visible:nodeCreated" id="nodeMessage">
+                <span class="input-group-addon">Message</span>
                 <textarea type="text" class="form-control" placeholder="Message here..." rows="4" data-bind="value: publishText"></textarea>
             </div>
-            <button type="button" class="btn btn-default" id="logInButton" data-bind="click:publishMessage">Publish</button>
 
+            <!--<button type="button" class="btn btn-default" id="logInButton" data-bind="click:publishMessage">Publish</button>-->
+            <input type="button" class="btn btn-default " data-bind="click:publishMessage,value:pubButton" id="logInButton"  />
             <div >
                 <h3 class="pHead">PubSub Messages Sent</h3>
                 <table class="table table-bordered table-condensed">
