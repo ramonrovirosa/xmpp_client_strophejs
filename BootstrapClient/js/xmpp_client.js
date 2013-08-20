@@ -71,7 +71,6 @@ function on_presence(presence){
             } else if (show === 'away'){
                 //log(from + ' is away');
             }
-
         }
     }
     return true;
@@ -83,41 +82,40 @@ function sendMessage(msg){
     connection.send(reply.tree());
     console.log('...I sent ' + msg.to + ': ' + msg.message);
 }
-
 function onMessage(msg) {
     console.log(msg);
 
-        var to = msg.getAttribute('to');
-        var from = msg.getAttribute('from');
-        var type = msg.getAttribute('type');
-        var elems = msg.getElementsByTagName('body');
+    var to = msg.getAttribute('to');
+    var from = msg.getAttribute('from');
+    var type = msg.getAttribute('type');
+    var elems = msg.getElementsByTagName('body');
 
-        if ( /*type == "chat" && */ elems.length > 0) {
-            var body = elems[0];
-            console.log('...I got a message from ' + from + ': ' +
-                Strophe.getText(body));
+    if (/*type == "chat" && */ elems.length > 0) {
+        var body = elems[0];
+        console.log('...I got a message from ' + from + ': ' +
+            Strophe.getText(body));
 
 
-            var message = {
-                from : from,
-                body : Strophe.getText(elems[0])
-            }
-
-            viewModel.messageReceived(message);
+        var message = {
+            from: from,
+            body: Strophe.getText(elems[0])
         }
 
-        if ($(msg).attr('from') == 'pubsub.localhost') {
-            var _data = $(msg).children('event')
-                .children('items')
-                .children('item')
-                .children('entry').text();
-            var _message = $(_data).html();
-            var subMessage = {
-                from : viewModel.subscribeNode(),
-                body : _message
-            }
-            viewModel.subscribeMessageReceived(subMessage);
+        viewModel.messageReceived(message);
+    }
+
+    if ($(msg).attr('from') == 'pubsub.localhost') {
+        var _data = $(msg).children('event')
+            .children('items')
+            .children('item')
+            .children('entry').text();
+        var _message = _data.toString();
+        var subMessage = {
+            from: viewModel.subscribeNode(),
+            body: _message
         }
+        viewModel.subscribeMessageReceived(subMessage);
+    }
 
 
     // we must return true to keep the handler alive.
@@ -133,23 +131,22 @@ function createNode(){
         type :    'msg_text'
     }
     sendPub();
-
 }
 
 function sendPub(){
+    if(viewModel.publishText() == '') return;
     console.log("sending data");
-    var _d = $build('data', { 'type' : 'msg_text' }).t(viewModel.publishText()).toString();
-    console.log("_d");
-    console.log(_d);
+    //var _d = $build('data', { type : 'msg_text' }).t(viewModel.publishText()).toString();
+    //console.log("_d");
+    //console.log(_d);
     connection.pubsub.publish(
         connection.jid,
         'pubsub.localhost',
         viewModel.publishNode(),
-        [_d],
+        [viewModel.publishText().toString()],
         publish.onSend
     );
      //viewModel.messagePublished(msg);
-    return true;
 }
 
 
@@ -282,8 +279,8 @@ function contactsModel(){
     self.publishMessage=function(){
         if(self.publishNode() == undefined || self.publishNode() == '')
             alert("Blank Node name, please fix");
-        else if(self.publishText() == undefined || self.publishText() == '' )
-            alert("Empty Message, please type something");
+//        else if(self.publishText() == undefined || self.publishText() == '' )
+//            alert("Empty Message, please type something");
         else{
             console.log("creating pubSub node");
             connection.pubsub.createNode(
