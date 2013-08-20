@@ -4,6 +4,8 @@ XMPP Web Client Using Strophe.js
 Javascript Web XMPP Client...Works with Google Talk, Facebook Chat, and Openfire for a custom server.
 I Used Nginx &amp; Punjab as well. My implementation is Windows based, but should work on any OS.
 
+![Alt text](pubSub.jpg "Bootstrap Client")
+
 ###Punjab###
 
 To get the XMPP client running, first I installed Punjab, which requires python. 
