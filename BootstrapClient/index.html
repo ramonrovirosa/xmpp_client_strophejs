@@ -39,29 +39,29 @@
 </div>
 
 <div class="container">
-    <div class="login-box panel">
+    <div class="login-box panel customBorder">
         <div class="panel-heading pHead">Login</div>
-            <div class="panel-body">
-                <div class="input-group">
-                    <span class="input-group-addon">UserName:</span>
-                    <input type="text" class="form-control" placeholder="JID" id='jid' data-bind="value:jid">
-                    <span class="input-group-addon">Password:</span>
-                    <input type='password' class="form-control" placeholder="" id='pass' data-bind="value:password">
-                    <span class="input-group-addon">Priority:</span>
-                    <input type="text" class="form-control" placeholder="-10,0,10" default="0" id="priority" >
-                </div>
-
-                <input type="button" class="btn btn-default " data-bind="click: connect" id='connect' value="Connect" />
-                <div data-bind="style: {color: connectText() == 'Connected!' ? 'green' : 'black'}">
-                    <div class="" data-bind="visible: connecting" id="connecting">
-                        <div data-bind="text:connectText"></div>
-                    </div>
-                </div>
-
+        <div class="panel-body">
+            <div class="input-group">
+                <span class="input-group-addon">UserName:</span>
+                <input type="text" class="form-control" placeholder="JID" id='jid' data-bind="value:jid">
+                <span class="input-group-addon">Password:</span>
+                <input type='password' class="form-control" placeholder="" id='pass' data-bind="value:password">
+                <span class="input-group-addon">Priority:</span>
+                <input type="text" class="form-control" placeholder="-10,0,10" default="0" id="priority" >
             </div>
+
+            <input type="button" class="btn btn-default " data-bind="click: connect" id='connect' value="Connect" />
+            <div data-bind="style: {color: connectText() == 'Connected!' ? 'green' : 'black'}">
+                <div class="" data-bind="visible: connecting" id="connecting">
+                    <div data-bind="text:connectText"></div>
+                </div>
+            </div>
+
+        </div>
     </div>
 
-    <div class="login-box panel">
+    <div class="login-box panel customBorder" >
         <div class="panel-heading pHead">Contacts</div>
         <div class="panel-body" data-bind="visible: connecting">
             <table class="table table-bordered table-condensed">
@@ -73,21 +73,21 @@
                 </tr>
                 </thead>
                 <tbody data-bind='foreach: contacts'>
-                    <tr data-bind="style:{color: status() == 'Offline' ? 'black' : 'green'}">
-                        <td data-bind="text: name"></td>
-                        <td data-bind="text:jid"></td>
-                        <td data-bind="text:status"></td>
-                    </tr>
+                <tr data-bind="style:{color: status() == 'Offline' ? 'black' : 'green'}">
+                    <td data-bind="text: name"></td>
+                    <td data-bind="text:jid"></td>
+                    <td data-bind="text:status"></td>
+                </tr>
                 </tbody>
             </table>
 
         </div>
     </div>
 
-    <div class="login-box panel ">
+    <div class="login-box panel customBorder">
         <div class="panel-heading pHead" >Message</div>
         <div class="panel-body" data-bind="visible: connecting">
-            <h3 class="pHead">Send a Message</h3>
+            <h3 class="pInnerHead">Send a Message</h3>
             <div class="input-group">
                 <span class="input-group-addon">Message</span>
                 <input type="text" class="form-control" placeholder="Username" data-bind="value:sendUsername" >
@@ -95,7 +95,7 @@
             </div>
             <button type="button" class="btn btn-default" id="sendButton" data-bind="click:sendMessage">Send</button>
             <div data-bind="visible:firstMessageSent">
-                <h3 class="pHead">Messages Sent</h3>
+                <h3 class="pInnerHead">Messages Sent</h3>
                 <table class="table table-bordered table-condensed">
                     <thead>
                     <tr>
@@ -113,7 +113,7 @@
 
             </div>
             <div data-bind="visible:firstMessageReceived">
-                <h3 class="pHead">Messages Received</h3>
+                <h3 class="pInnerHead">Messages Received</h3>
                 <table class="table table-bordered table-condensed">
                     <thead>
                     <tr>
@@ -132,10 +132,10 @@
         </div>
     </div>
 
-    <div class="login-box panel">
+    <div class="login-box panel customBorder">
         <div class="panel-heading pHead">Publish Subscribe</div>
         <div class="panel-body" data-bind="visible: connecting">
-            <h3 class="pHead">Publish A Message to All Subscribers</h3>
+            <h3 class="pInnerHead">Publish A Message to All Subscribers</h3>
             <div class="input-group">
                 <span class="input-group-addon">Node Name</span>
                 <input type="text" class="form-control" placeholder="Node" data-bind="value: publishNode">
@@ -149,8 +149,8 @@
 
             <!--<button type="button" class="btn btn-default" id="logInButton" data-bind="click:publishMessage">Publish</button>-->
             <input type="button" class="btn btn-default " data-bind="click:publishMessage,value:pubButton" id="logInButton"  />
-            <div >
-                <h3 class="pHead">PubSub Messages Sent</h3>
+            <div data-bind="visible:nodeCreated">
+                <h3 class="pInnerHead">PubSub Messages Sent</h3>
                 <table class="table table-bordered table-condensed">
                     <thead>
                     <tr>
@@ -173,7 +173,7 @@
             </div>
             <button type="button" class="btn btn-default" id="subscribeButton" data-bind="click:pubSubscribe">Subscribe</button>
             <div data-bind="visible: clientSubscribed">
-                <h3 class="pHead">PubSub Messages Received</h3>
+                <h3 class="pInnerHead">PubSub Messages Received</h3>
                 <table class="table table-bordered table-condensed">
                     <thead>
                     <tr>

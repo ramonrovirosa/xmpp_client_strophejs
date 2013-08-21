@@ -6,9 +6,16 @@ body {
     margin: 40px 15px;
 
 }
+.pInnerHead{
+    text-align: center;
+    font-size:24px;
+    color:#808080;
+}
 .pHead{
     text-align: center;
     font-size:24px;
+    background-color: #eee;
+    border-color: #cccccc;
 }
 #connect{
     margin-top: 10px;
@@ -28,5 +35,9 @@ body {
 
 #subscribe{
     margin-top:50px;
+}
+
+.customBorder{
+    border-color: #ccc;
 }
 
