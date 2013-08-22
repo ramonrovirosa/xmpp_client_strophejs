@@ -6,6 +6,9 @@ I Used Nginx &amp; Punjab as well. The UI was built with help from [Twitter Boot
 
 ![Alt text](pubSub.jpg "Bootstrap Client")
 
+###Example###
+A demo hosted on github can be found here: [Chat Client](http://ramonrovirosa.github.io/ChatClient/ "XMPP Chat Client")
+
 ###Punjab###
 
 To get the XMPP client running, first I installed Punjab, which requires python. 
