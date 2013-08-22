@@ -6,9 +6,21 @@ I Used Nginx &amp; Punjab as well. The UI was built with help from [Twitter Boot
 
 ![Alt text](pubSub.jpg "Bootstrap Client")
 
-###Example###
+##Example##
 A demo hosted on github can be found here: [Chat Client](http://ramonrovirosa.github.io/ChatClient/ "XMPP Chat Client")
 
+For Connecting to Google talk:
+- User name: user@gmail.com
+- Password: user google password
+
+For Connecting to Facebook:
+- User name: user@chat.facebook.com
+- Password: user facebook password
+
+#####You will most likely be required to authorize the client before use!#####
+
+
+##Install Instructions##
 ###Punjab###
 
 To get the XMPP client running, first I installed Punjab, which requires python. 
