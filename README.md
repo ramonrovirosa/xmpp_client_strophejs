@@ -35,6 +35,8 @@ For Connecting to Facebook:
 - User name: user@chat.facebook.com
 - Password: user facebook password
 
+#####You will most likely be required to authorize the client before use!#####
+
 Openfire server: http://www.igniterealtime.org/projects/openfire/
 
 ###Durandal JS XMPP CLIENT###
