@@ -1,0 +1,1 @@
+This is the config needed to run Anonymous Publish Subscribe with Ejabberd....since PUBSUB Anonymous is not supported with OpenFire
