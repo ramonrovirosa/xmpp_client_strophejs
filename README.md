@@ -62,8 +62,8 @@ Once everything is installed:
   1. cd into your nginx root directory. 
   2. Run the cmd: twistd punjab.
   3. In a new terminal cd into your nginx directory again and run nginx.exe
-  4. Open up http://localhost:80
+  4. Open up [http://localhost:80](http://localhost:80 "http://localhost:80")
   
   ####For the Durandal Client####
   1. Go to the directory containing the mimosa config file and run: <b>mimosa watch --server</b>
-  2. Go to http://localhost:3000
+  2. Go to [http://localhost:3000](http://localhost:3000 "http://localhost:3000")
