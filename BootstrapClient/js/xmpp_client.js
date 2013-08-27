@@ -90,6 +90,11 @@ function onMessage(msg) {
     var type = msg.getAttribute('type');
     var elems = msg.getElementsByTagName('body');
 
+    if(type == "error"){
+        alert("An error occured! Is your account verified? Is the individual in your contacts?");
+        return;
+    }
+
     if (/*type == "chat" && */ elems.length > 0) {
         var body = elems[0];
         console.log('...I got a message from ' + from + ': ' +
@@ -293,6 +298,8 @@ function contactsModel(){
 //            alert("Empty Message, please type something");
         else{
             console.log("creating pubSub node");
+            //Node must be of the format:
+            //pubsub.node.nodeName
             connection.pubsub.createNode(
                 self.jid(),
                 'pubsub.localhost',
