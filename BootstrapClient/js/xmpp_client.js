@@ -350,19 +350,26 @@ function contactsModel(){
         self.pubButton('Send Node Message');
     }
     self.pubUnsubscribe = function(){
+        //we must call getSubscription in order
+        //to get the subID first before we unsubscribe...
         getSubscriptions();
+    }
+    self.getSUBID  = function(subID){
+        self.SUBID(subID);
+        console.log("SUBID: ", self.SUBID());
+        self.unsubscribe();
 
+    }
+    self.unsubscribe= function(){
+        alert("hello");
         connection.pubsub.unsubscribe(
             // unsubscribe: function(node, jid, subid, success, error)
             self.unsubscribeNode(),
             getSubJid(connection.jid),
-            'eAdB14A05w5AGBfyF36tL4wcwEjWPQAlhEtycp6r',
+            self.SUBID(),
             publish.unsubscribeSuccess,
             publish.unsubscribeError
         );
-    }
-    self.getSUBID  = function(subID){
-        self.SUBID(subID);
     }
 }
 
@@ -396,11 +403,12 @@ var publish = {
         console.log("Error unsubscribing " + viewModel.unsubscribeNode(),data);
     },
     getSubscriptions : function(iq){
+        console.log("iq",iq);
         $(iq).find('subscription').each(function() {
               console.log($(this).attr('node'));
               if($(this).attr('node') == viewModel.unsubscribeNode()) {
-                  //viewModel.getSUBID($(this).attr("sid").toString());
-                  console.log($(this).attr("subid"));
+                  viewModel.getSUBID($(this).attr("subid"));
+                  //console.log("subid: ", $(this).attr("subid"));
               }
         });
 
