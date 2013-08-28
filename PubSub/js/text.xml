@@ -1,0 +1,16 @@
+<body xmlns='http://jabber.org/protocol/httpbind'>
+    <message xmlns='jabber:client' to='emmanuel@localhost/eff8f92f' from='pubsub.localhost'
+             id='ramonNode__emmanuel@localhost__2pm1e'>
+        <event xmlns='http://jabber.org/protocol/pubsub#event'>
+            <items node='ramonNode'>
+                <item id='e301a0a7-3ccb-4d9b-98ee-bef34dd4b54b77'>
+                    <entry xmlns='http://jabber.org/protocol/pubsub'>Hello</entry>
+                </item>
+            </items>
+        </event>
+        <headers xmlns='http://jabber.org/protocol/shim'>
+            <header name='pubsub#subid'>412Spih0EPDJgbX9XuIbGdyk21mKG08JJmb7EKR1</header>
+            <header name='pubsub#subid'>xX4fnE09S8EqTRH1K9NlLWxbt1LUyuk3c9149Uho</header>
+        </headers>
+    </message>
+</body>

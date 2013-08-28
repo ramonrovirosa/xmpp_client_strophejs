@@ -1,7 +1,9 @@
 var Control = {
   // start admin credentials
-  admin_jid: 'admin@localhost',
-  admin_pass: 'Example123Cuba',
+//  admin_jid: 'localhost',
+//  admin_pass: '',
+    admin_jid: 'admin@localhost',
+    admin_pass: 'Example123Cuba',
   // end admin credentials
 
   pubsub_server: 'pubsub.' + Config.XMPP_SERVER,
@@ -39,6 +41,7 @@ var Control = {
   // called when data is deemed as sent
   on_send: function (data) {
     Control.log("Data Sent");
+    Control.log(data);
     $('#message').val('');
     $('#progress').text('message sent').fadeIn().fadeOut(5000);
 
@@ -49,12 +52,14 @@ var Control = {
   publish: function (data) {
     if (data.message == '') return;
     var _d = $build('data', { 'type' : data.type }).t(data.message).toString(); 
-
+//      console.log("_d");
+//      console.log(_d);
+      console.log("_d",_d);
     Control.connection.pubsub.publish(
       Control.admin_jid,
       Control.pubsub_server,
       Config.PUBSUB_NODE,
-      [_d],
+        [_d],
       Control.on_send
     );
   },
@@ -83,8 +88,23 @@ var Control = {
   // or the one we're creating is available
   on_create_node: function (data) {
     Control.feedback('Connected', '#00FF00');
-    Control.init();
+    Control.log("Data: ");
+    Control.log(data);
+
+
+      var iq = $iq({type: 'set', from:Control.admin_jid ,to : 'pubsub.localhost',id:'ent2'})
+          .c('pubsub', {xmlns: 'http://jabber.org/protocol/pubsub#owner'})
+          .c('affiliations',{node: Config.PUBSUB_NODE})
+          .c('affiliation', {jid: Control.admin_jid, affiliation:'publisher'});
+      //var iq2= $iq({type: 'get'}).c('query', {xmlns: 'jabber:iq:roster:presence'});
+      //log("Requesting roster " + iq.toString());
+      Control.connection.sendIQ(iq, affiliation);
+      Control.init();
   }
+}
+
+function affiliation(data){
+    console.log("affiliation data: ",data);
 }
 
 $(document).ready(function () {

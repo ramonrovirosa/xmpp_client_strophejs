@@ -1,3 +1,4 @@
+
 var Client = {
     pubsub_server: 'pubsub.' + Config.XMPP_SERVER,
     connection: null,
@@ -87,11 +88,9 @@ var Client = {
                 .children('items')
                 .children('item')
                 .children('entry').text();
-            var _message = $(_data).html();
+            //var _message = $(_data).html();
+            var _message = _data.toString();
             Client.show_text(_message);
-
-
-
         }
 
         return true;
@@ -140,12 +139,11 @@ $(document).ready(function () {
     Client.connection = conn;
     Client.connection.rawInput = Client.raw_input;
     Client.connection.rawOutput = Client.raw_output;
-//  Client.connection.connect(
-//    Config.XMPP_SERVER + '/pubsub',
-//    '',
-//    Client.on_connect
-//  );
-    Client.connection.connect(
-        'emmanuel@localhost', 'PantsCar33', Client.on_connect
-    );
+
+   Client.connection.connect(
+            'emmanuel@localhost', 'PantsCar33', Client.on_connect
+       );
+
 });
+
+
