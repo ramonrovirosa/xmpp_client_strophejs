@@ -1,0 +1,36 @@
+body {
+    padding-top: 50px;
+}
+.login-box {
+    margin: 40px 15px;
+}
+.pInnerHead{
+    text-align: center;
+    font-size:24px;
+    color:#808080;
+}
+.pHead{
+    text-align: center;
+    font-size:24px;
+    background-color: #eee;
+    border-color: #cccccc;
+}
+#connecting{
+    margin-top: 10px;
+    font-size: 24px;
+}
+.margin10Top,#sendButton,#logInButton,#subscribeButton,#nodeMessage,#unsubscribeButton,#connect,.sub{
+    margin-top: 10px;
+}
+
+#subscribe{
+    margin-top:50px;
+}
+#unsubScribe{
+    margin-top: 20px;
+}
+
+.customBorder{
+    border-color: #ccc;
+}
+

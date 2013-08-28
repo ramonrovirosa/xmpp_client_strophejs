@@ -1,46 +1,32 @@
 body {
-    padding-top: 50px;
+  padding-top: 50px; }
 
-}
 .login-box {
-    margin: 40px 15px;
+  margin: 40px 15px; }
 
-}
-.pInnerHead{
-    text-align: center;
-    font-size:24px;
-    color:#808080;
-}
-.pHead{
-    text-align: center;
-    font-size:24px;
-    background-color: #eee;
-    border-color: #cccccc;
-}
-#connect{
-    margin-top: 10px;
+.pInnerHead {
+  text-align: center;
+  font-size: 24px;
+  color: #808080; }
 
-}
-.sub{
-    margin-top: 10px;
-}
+.pHead {
+  text-align: center;
+  font-size: 24px;
+  background-color: #eee;
+  border-color: #cccccc; }
 
-#connecting{
-    margin-top: 10px;
-    font-size: 24px;
-}
-.margin10Top,#sendButton,#logInButton,#subscribeButton,#nodeMessage,#unsubscribeButton{
-    margin-top: 10px;
-}
+#connecting {
+  margin-top: 10px;
+  font-size: 24px; }
 
-#subscribe{
-    margin-top:50px;
-}
-#unsubScribe{
-    margin-top: 20px;
-}
+.margin10Top, #sendButton, #logInButton, #subscribeButton, #nodeMessage, #unsubscribeButton, #connect, .sub {
+  margin-top: 10px; }
 
-.customBorder{
-    border-color: #ccc;
-}
+#subscribe {
+  margin-top: 50px; }
 
+#unsubScribe {
+  margin-top: 20px; }
+
+.customBorder {
+  border-color: #ccc; }
