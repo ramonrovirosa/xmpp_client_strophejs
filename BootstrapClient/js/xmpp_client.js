@@ -38,6 +38,7 @@ function getRoster() {
 
 function rosterReceived(iq){
     console.log("...Contacts for " + connection.jid + ': \n');
+    console.log(iq);
     $(iq).find("item").each(function() {
         // if a contact is still pending subscription then do not show it in the list
         if ($(this).attr('ask')) {
@@ -138,6 +139,18 @@ function createNode(){
     sendPub();
 }
 
+function getSubJid(JID){
+    //for parsing JID: ramon@localhost/1234567
+    // to ramon@localhost
+    var subJID='';
+    for(i=0;i<JID.length;i++){
+        if(JID[i] == '/')
+            return subJID;
+        subJID+=JID[i];
+    }
+    return subJID;
+}
+
 function sendPub(){
     if(viewModel.publishText() == ''){
         viewModel.createNode();
@@ -145,14 +158,16 @@ function sendPub(){
     }
 
     console.log("sending data");
-    //var _d = $build('data', { type : 'msg_text' }).t(viewModel.publishText()).toString();
-    //console.log("_d");
-    //console.log(_d);
+//    connection.pubsub.publish(
+//        connection.jid,
+//        'pubsub.localhost',
+//        viewModel.publishNode(),
+//        [viewModel.publishText().toString()],
+//        publish.onSend
+//    );
     connection.pubsub.publish(
-        connection.jid,
-        'pubsub.localhost',
         viewModel.publishNode(),
-        [viewModel.publishText().toString()],
+        viewModel.publishText(),
         publish.onSend
     );
      //viewModel.messagePublished(msg);
@@ -162,6 +177,9 @@ function onSubscribe(){
     viewModel.subscribe();
     console.log("now waiting for messages!");
     return true;
+}
+function getSubscriptions(){
+    connection.pubsub.getSubscriptions(publish.getSubscriptions);
 }
 function onEvent(message){
     if(!viewModel.clientSubscribed()){
@@ -194,8 +212,10 @@ function contactsModel(){
     self.nodeCreated=ko.observable(false);
     self.publishText=ko.observable('');
     self.subscribeNode=ko.observable();
+    self.unsubscribeNode=ko.observable();
     self.clientSubscribed=ko.observable(false);
-    self.pubButton=ko.observable("Node");
+    self.pubButton=ko.observable("Create Node");
+    self.SUBID=ko.observable('');
 
 
     self.connect = function(){
@@ -297,12 +317,8 @@ function contactsModel(){
 //        else if(self.publishText() == undefined || self.publishText() == '' )
 //            alert("Empty Message, please type something");
         else{
-            console.log("creating pubSub node");
-            //Node must be of the format:
-            //pubsub.node.nodeName
+            console.log("creating pubSub node: "+ self.publishNode());
             connection.pubsub.createNode(
-                self.jid(),
-                'pubsub.localhost',
                 self.publishNode(),
                 {},
                 publish.onCreateNode
@@ -311,12 +327,12 @@ function contactsModel(){
     }
     self.pubSubscribe=function(){
         connection.pubsub.subscribe(
-            self.jid(),
-            'pubsub.localhost',
             self.subscribeNode(),
-            [],
+            {},
             onEvent(),
-            onSubscribe()
+            onSubscribe(),
+            console.log("error subscribing to node"),
+            connection.jid
         );
     }
     self.subscribe=function(){
@@ -332,6 +348,21 @@ function contactsModel(){
     self.createNode=function(){
         self.nodeCreated(true);
         self.pubButton('Send Node Message');
+    }
+    self.pubUnsubscribe = function(){
+        getSubscriptions();
+
+        connection.pubsub.unsubscribe(
+            // unsubscribe: function(node, jid, subid, success, error)
+            self.unsubscribeNode(),
+            getSubJid(connection.jid),
+            'eAdB14A05w5AGBfyF36tL4wcwEjWPQAlhEtycp6r',
+            publish.unsubscribeSuccess,
+            publish.unsubscribeError
+        );
+    }
+    self.getSUBID  = function(subID){
+        self.SUBID(subID);
     }
 }
 
@@ -355,5 +386,24 @@ var publish = {
         console.log(data);
         viewModel.messagePublished({from: viewModel.publishNode(),body: viewModel.publishText() })
         return true;
+    },
+    unsubscribeSuccess : function(data){
+        alert("Successfull unsubscribe from node: " + viewModel.unsubscribeNode());
+        console.log("Unsubscribed: "  + viewModel.unsubscribeNode(), data);
+    },
+    unsubscribeError : function(data){
+        alert("Error unsubscribing");
+        console.log("Error unsubscribing " + viewModel.unsubscribeNode(),data);
+    },
+    getSubscriptions : function(iq){
+        $(iq).find('subscription').each(function() {
+              console.log($(this).attr('node'));
+              if($(this).attr('node') == viewModel.unsubscribeNode()) {
+                  //viewModel.getSUBID($(this).attr("sid").toString());
+                  console.log($(this).attr("subid"));
+              }
+        });
+
+
     }
 }

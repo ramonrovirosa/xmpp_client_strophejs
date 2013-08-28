@@ -137,8 +137,8 @@
         <div class="panel-body" data-bind="visible: connecting">
             <h3 class="pInnerHead">Publish A Message to All Subscribers</h3>
             <div class="input-group">
-                <span class="input-group-addon">Node Name</span>
-                <input type="text" class="form-control" placeholder="Node" data-bind="value: publishNode">
+                <span class="input-group-addon">Node ID</span>
+                <input type="text" class="form-control" placeholder="pubsub.localhost.nodeName" data-bind="value: publishNode">
                 <!--<span class="input-group-addon">Message</span>-->
                 <!--<textarea type="text" class="form-control" placeholder="Message here..." rows="4" data-bind="value: publishText"></textarea>-->
             </div>
@@ -169,7 +169,7 @@
 
             <div class="input-group sub" id="subscribe">
                 <span class="input-group-addon">Subscribe</span>
-                <input type="text" class="form-control" placeholder="pubsub.node.nodeName" data-bind="value:subscribeNode">
+                <input type="text" class="form-control" placeholder="pubsub.localhost.nodeName" data-bind="value:subscribeNode">
             </div>
             <button type="button" class="btn btn-default" id="subscribeButton" data-bind="click:pubSubscribe">Subscribe</button>
             <div data-bind="visible: clientSubscribed">
@@ -189,6 +189,12 @@
                     </tbody>
                 </table>
             </div>
+            <div class="input-group sub" id="unsubScribe">
+                <span class="input-group-addon">Unsubscribe</span>
+                <input type="text" class="form-control" placeholder="pubsub.localhost.nodeName" data-bind="value:unsubscribeNode">
+            </div>
+            <button type="button" class="btn btn-default" id="unsubscribeButton" data-bind="click:pubUnsubscribe">Unsubscribe</button>
+
         </div>
     </div>
 
