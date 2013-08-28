@@ -178,9 +178,6 @@ function onSubscribe(){
     console.log("now waiting for messages!");
     return true;
 }
-function getSubscriptions(){
-    connection.pubsub.getSubscriptions(publish.getSubscriptions);
-}
 function onEvent(message){
     if(!viewModel.clientSubscribed()){
         return true;
@@ -206,6 +203,7 @@ function contactsModel(){
     self.receivedMessages=ko.observableArray([]);
     self.subscribedMessages=ko.observableArray([]);
     self.publishedMessage=ko.observableArray([]);
+    self.subscribedNode = ko.observableArray([]);
     self.sendUsername=ko.observable();
     self.sendMessageText=ko.observable();
     self.publishNode=ko.observable();
@@ -216,6 +214,7 @@ function contactsModel(){
     self.clientSubscribed=ko.observable(false);
     self.pubButton=ko.observable("Create Node");
     self.SUBID=ko.observable('');
+    self.subscriptionTable=ko.observable(false);
 
 
     self.connect = function(){
@@ -352,7 +351,7 @@ function contactsModel(){
     self.pubUnsubscribe = function(){
         //we must call getSubscription in order
         //to get the subID first before we unsubscribe...
-        getSubscriptions();
+        connection.pubsub.getSubscriptions(publish.getSubscriptionsForUnsubscribe);
     }
     self.getSUBID  = function(subID){
         self.SUBID(subID);
@@ -361,7 +360,6 @@ function contactsModel(){
 
     }
     self.unsubscribe= function(){
-        alert("hello");
         connection.pubsub.unsubscribe(
             // unsubscribe: function(node, jid, subid, success, error)
             self.unsubscribeNode(),
@@ -370,6 +368,14 @@ function contactsModel(){
             publish.unsubscribeSuccess,
             publish.unsubscribeError
         );
+    }
+    self.showSubscriptions = function(){
+        connection.pubsub.getSubscriptions(publish.getSubscriptions);
+    }
+    self.pushsubscribedNode = function(node){
+        //console.log(node);
+        self.subscriptionTable(true);
+        self.subscribedNode.push({nodeName : node});
     }
 }
 
@@ -402,7 +408,7 @@ var publish = {
         alert("Error unsubscribing");
         console.log("Error unsubscribing " + viewModel.unsubscribeNode(),data);
     },
-    getSubscriptions : function(iq){
+    getSubscriptionsForUnsubscribe : function(iq){
         console.log("iq",iq);
         $(iq).find('subscription').each(function() {
               console.log($(this).attr('node'));
@@ -411,7 +417,11 @@ var publish = {
                   //console.log("subid: ", $(this).attr("subid"));
               }
         });
-
-
+    },
+    getSubscriptions : function(iq){
+        console.log("iq",iq);
+        $(iq).find('subscription').each(function() {
+           viewModel.pushsubscribedNode($(this).attr('node'));
+        });
     }
 }

@@ -194,7 +194,24 @@
                 <input type="text" class="form-control" placeholder="pubsub.localhost.nodeName" data-bind="value:unsubscribeNode">
             </div>
             <button type="button" class="btn btn-default" id="unsubscribeButton" data-bind="click:pubUnsubscribe">Unsubscribe</button>
-
+            <div class="margin10Top">
+            <button type="button" class="btn btn-default margin10Top" id="showSubscriptions" data-bind="click:showSubscriptions">Subscriptions</button>
+                <div data-bind="visible: subscriptionTable">
+                    <h3 class="pInnerHead">Nodes Subscribed To</h3>
+                    <table class="table table-bordered table-condensed">
+                        <thead>
+                        <tr>
+                            <th>Subscription Name</th>
+                        </tr>
+                        </thead>
+                        <tbody data-bind='foreach: subscribedNode'>
+                        <tr>
+                            <td data-bind="text: nodeName"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 

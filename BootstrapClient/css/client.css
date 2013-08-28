@@ -29,7 +29,7 @@ body {
     margin-top: 10px;
     font-size: 24px;
 }
-#sendButton,#logInButton,#subscribeButton,#nodeMessage,#unsubscribeButton{
+.margin10Top,#sendButton,#logInButton,#subscribeButton,#nodeMessage,#unsubscribeButton{
     margin-top: 10px;
 }
 
